@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  resources :games, only: :new
+
   match "*path" => "home#index", via: [:get, :post]
 
   # Example of regular route:
