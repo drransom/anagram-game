@@ -9,6 +9,7 @@ var WordGame = React.createClass({
     if (!this.props.words || this.props.words.length === 0) {
       game = game.getWords();
     }
+    debugger;
     return (
       <div>
         <div>Words: {this.props.words}</div>
