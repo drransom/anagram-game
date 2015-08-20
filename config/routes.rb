@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
-  root 'static_pages#root'
+  root 'games#new'
 
-  resources :games, only: :new
+  resources :games, only: [:new, :update]
 
-  match "*path" => "static_pages#root", via: [:get, :post]
+  match "*path" => "games#new", via: [:get, :post]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
