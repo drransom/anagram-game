@@ -66,7 +66,9 @@ var WordGameView = React.createClass({
   requestNewWords: function() {
     $.get(this.url, {new_words: true},
       function(data) {
-        this.setProps({words: this.props.words.concat(data)});
+        var newWords = this.props.words.concat(data);
+        this.game.words = newWords;
+        this.setProps({words: newWords});
       }.bind(this)
     );
   },
