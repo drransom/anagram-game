@@ -18,20 +18,10 @@ var WordGameView = React.createClass({
         </div>
       );
     } else {
-      letters = [];
-      for (i = 0; i < this.props.currentGuess.length; i++) {
-        char = this.props.currentGuess[i];
-        letters.push(<WordGameLetter char={char} active={true}
-                      key={'letter-' + i}/>);
-      }
-      for (j = 0; j < this.props.scrambledChars.length; j++) {
-        char = this.props.scrambledChars[j];
-        letters.push(<WordGameLetter char={char} active={false}
-                      key={'letter-' + i + j}/>);
-      }
+      letters = this.calculateLetters();
       return (
-        <div>
-          <div>Letters: {letters}</div>
+        <div className='row'>
+          <div className='col-md-6 col-md-offset-4'>Letters: {letters}</div>
         </div>
       );
     }
@@ -67,6 +57,21 @@ var WordGameView = React.createClass({
     console.log('keypress recognized')
     var keyCode = event.keyCode || event.which;
     this.game.takeChar(String.fromCharCode(keyCode));
+  },
+
+  calculateLetters: function() {
+    var letters = [];
+    for (i = 0; i < this.props.currentGuess.length; i++) {
+      char = this.props.currentGuess[i];
+      letters.push(<WordGameLetter char={char} active={true}
+                    key={'letter-' + i}/>);
+    }
+    for (j = 0; j < this.props.scrambledChars.length; j++) {
+      char = this.props.scrambledChars[j];
+      letters.push(<WordGameLetter char={char} active={false}
+                    key={'letter-' + i + j}/>);
+    }
+    return letters;
   },
 
 });
