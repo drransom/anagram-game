@@ -8,7 +8,7 @@ var WordGameView = React.createClass({
   },
 
   render: function() {
-    var i, j, char, letters;
+    var i, j, char, letters, lettersArea, buttonsArea;
     if (!this.props.words || this.props.words.length === 0) {
       this.requestNewWords();
     } else if (this.props.won) {
@@ -19,11 +19,28 @@ var WordGameView = React.createClass({
       );
     } else {
       letters = this.calculateLetters();
-      return (
-        <div className='row vertical-center'>
-          <div className='col-md-6 col-md-offset-4'>{letters}</div>
+      lettersArea =  (
+        <div className='row letters-row'>
+          <div className='letters-area'>{letters}</div>
         </div>
-        <div className='row'><GameButtons /></div>
+      );
+      buttonsArea = (
+        <div className='row'>
+          <div className='buttons-area'>
+            <ControlButtons won={this.props.won}
+              numCharsRemaining={this.props.scrambledChars.length}
+              numChars={this.props.scrambledChars.length + this.props.currentGuess.length}
+              game={this.game} />
+          </div>
+        </div>
+      );
+
+      return (
+        <div className='row vertical-margin-row'>
+          <div className='col-lg-12'>
+            {[lettersArea, buttonsArea]}
+          </div>
+        </div>
       );
     }
   },
