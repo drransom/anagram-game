@@ -1,7 +1,6 @@
 require 'byebug'
 class GamesController < ApplicationController
   def new
-    # debugger
     @words_arr = get_new_random_words
     if params[:new_words] == "true"
       render json: @words_arr
