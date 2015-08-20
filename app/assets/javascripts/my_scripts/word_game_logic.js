@@ -44,7 +44,7 @@ Game.prototype.updateGuess = function(index) {
 };
 
 Game.prototype.resetRound = function() {
-  this.unusedLetters = this.currentGuess;
+  this.unusedLetters = this.currentGuess.concat(this.unusedLetters);
   this.currentGuess = '';
   this.resetView(false);
 };

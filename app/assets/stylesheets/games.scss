@@ -19,14 +19,17 @@ div.game-letter {
   span.game-letter {
     font-size: 50px;
     text-transform: uppercase;
-
   }
 
+  span.game-letter.game-letter-active {
+    color: red
+  }
 }
 
-.game-letter-active {
-  color: red
+div.game-letter.game-letter-active {
+  background: linear-gradient(90deg, #6441A5 10%, #2a0845 90%);
 }
+
 
 .vertical-margin-row {
   margin-top: 30vh;
