@@ -8,14 +8,15 @@ ERWordGame.Game = function(view) {
 var Game = ERWordGame.Game;
 
 Game.prototype.startRound = function() {
-  if (this.words.length > 0) {
+  if (this.words.length >= 1) {
     this.correctWord = this.words.pop();
     this.scrambledWord = ECRWordGame.shuffle(this.correctWord.split('')).
       join('');
     this.unusedLetters = this.scrambledWord;
     this.currentGuess = '';
     this.resetView(false);
-  } else {
+  }
+  if (this.words.length === 0) {
     this.view.requestNewWords();
   }
 };
