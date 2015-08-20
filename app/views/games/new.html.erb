@@ -1,3 +1,4 @@
 <section id="game-area">
-  <%= react_component('WordGameView', words: @words_arr) %>
+  <%= react_component('WordGameView', words: @words_arr,
+      url: url_for(controller: 'games', action: 'new')) %>
 </section>

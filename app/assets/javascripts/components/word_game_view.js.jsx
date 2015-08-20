@@ -4,6 +4,7 @@ var WordGameView = React.createClass({
     scrambledChars: React.PropTypes.string,
     currentGuess: React.PropTypes.string,
     won: React.PropTypes.bool,
+    url: React.PropTypes.string,
   },
 
   render: function() {
@@ -34,6 +35,11 @@ var WordGameView = React.createClass({
   },
 
   requestNewWords: function() {
+    $.get(this.url, {new_words: true},
+      function(data) {
+        this.setProps({words: data});
+      }.bind(this)
+    );
   },
 
   handleKeypress: function(event) {
