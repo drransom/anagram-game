@@ -11,7 +11,7 @@ class GamesController < ApplicationController
 
   def get_new_random_words
     conditions = {min_corpus_count: 500, min_length: 6, max_length: 8,
-                  limit: 10, exclude_part_of_speech: "family-name,given-name"}
+                  limit: 1, exclude_part_of_speech: "family-name,given-name"}
     words = Wordnik.word.get_random_words(conditions)
     alpha = /\A[a-z]*\z/i
     words.select do |word|

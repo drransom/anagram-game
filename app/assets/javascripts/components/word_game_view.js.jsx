@@ -20,9 +20,10 @@ var WordGameView = React.createClass({
     } else {
       letters = this.calculateLetters();
       return (
-        <div className='row'>
-          <div className='col-md-6 col-md-offset-4'>Letters: {letters}</div>
+        <div className='row vertical-center'>
+          <div className='col-md-6 col-md-offset-4'>{letters}</div>
         </div>
+        <div className='row'><GameButtons /></div>
       );
     }
   },
