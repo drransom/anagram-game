@@ -13,8 +13,8 @@ var Game = ERWordGame.Game;
 Game.prototype.startRound = function() {
   if (this.words.length > 0) {
     this.correctWord = this.words.pop();
-    this.scrambledWord = this.correctWord.split('').
-      sort(function(){return 0.5-Math.random()}).join('');
+    this.scrambledWord = ECRWordGame.shuffle(this.correctWord.split('')).
+      join('');
     this.unusedLetters = this.scrambledWord;
     this.currentGuess = "";
     this.view.setProps({
@@ -27,23 +27,27 @@ Game.prototype.startRound = function() {
   }
 };
 
-Game.protype.takeChar = function(char) {
+Game.prototype.takeChar = function(char) {
   char = char.toLowerCase();
   var index = this.unusedLetters.indexOf(char);
-  if (index >= 0 && this.unusedLetters.length > 1) {
-    this.currentGuess += char;
-    this.unusedLetters = this.unusedLetters.slice(0, i) + this.unusedLetters.slice(i+1);
-    view.setProps({currentGuess: this.currentGuess,
-                   scrambledChars: this.unusedLetters,
-                   won: false });
-  } else if (index >= 0) {
+  if (index >= 0) {
+    this.updateGuess(index);
+  }
+};
+
+//assumes valid index
+Game.prototype.updateGuess = function(index) {
+  this.currentGuess += this.unusedLetters[index];
+  this.unusedLetters = this.unusedLetters.slice(0, index) +
+                       this.unusedLetters.slice(index+1);
+  if (this.currentGuess.length === this.correctWord.length &&
+      this.currentGuess !== this.correctWord) {
     this.currentGuess = "";
     this.unusedLetters = this.scrambledWord;
-    view.setProps({currentGuess: this.currentGuess,
-                   scrambledChars: this.unusedLetters,
-                   won: this.correctWord === this.currentGuess });
   }
-
+  this.view.setProps({currentGuess: this.currentGuess,
+                      scrambledChars: this.unusedLetters,
+                      won: this.currentGuess === this.correctWord });
 };
 
 })();

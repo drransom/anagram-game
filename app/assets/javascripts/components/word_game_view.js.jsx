@@ -9,6 +9,12 @@ var WordGameView = React.createClass({
   render: function() {
     if (!this.props.words || this.props.words.length === 0) {
       this.requestNewWords();
+    } else if (this.props.won) {
+      return (
+        <div>
+          <div>You won! The current guess was {this.props.currentGuess})</div>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -24,9 +30,15 @@ var WordGameView = React.createClass({
   componentDidMount: function() {
     this.game = new ERWordGame.Game(this);
     this.game.startRound();
+    $(window).keypress(this.handleKeypress);
   },
 
   requestNewWords: function() {
+  },
+
+  handleKeypress: function(event) {
+    var keyCode = event.keyCode || event.which;
+    this.game.takeChar(String.fromCharCode(keyCode));
   },
 
 });
