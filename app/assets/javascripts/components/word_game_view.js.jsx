@@ -1,28 +1,32 @@
 var WordGameView = React.createClass({
   propTypes: {
     words: React.PropTypes.array,
-    currentWord: React.PropTypes.string,
-    currentGuess: React.PropTypes.string
+    scrambledChars: React.PropTypes.string,
+    currentGuess: React.PropTypes.string,
+    won: React.PropTypes.bool,
   },
 
   render: function() {
     if (!this.props.words || this.props.words.length === 0) {
-      this.updateGame();
+      this.requestNewWords();
     } else {
       return (
         <div>
           <div>Words: {this.props.words}</div>
-          <div>Current Word: {this.props.currentWord}</div>
+          <div>Scrambled Chars: {this.props.scrambledChars}</div>
           <div>Current Guess: {this.props.currentGuess}</div>
         </div>
       );
     }
   },
 
-  updateGame: function() {
-  },
 
   componentDidMount: function() {
     this.game = new ERWordGame.Game(this);
-  }
+    this.game.startRound();
+  },
+
+  requestNewWords: function() {
+  },
+
 });
