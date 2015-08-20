@@ -25,7 +25,7 @@ var WordGameView = React.createClass({
         </div>
       );
       buttonsArea = (
-        <div className='row'>
+        <div className='row buttons-row'>
           <div className='buttons-area'>
             <ControlButtons won={this.props.won}
               numCharsRemaining={this.props.scrambledChars.length}

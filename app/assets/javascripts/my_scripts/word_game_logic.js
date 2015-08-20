@@ -10,9 +10,8 @@ var Game = ERWordGame.Game;
 Game.prototype.startRound = function() {
   if (this.words.length >= 1) {
     this.correctWord = this.words.pop();
-    this.scrambledWord = ECRWordGame.shuffle(this.correctWord.split('')).
+    this.unusedLetters = ECRWordGame.shuffle(this.correctWord.split('')).
       join('');
-    this.unusedLetters = this.scrambledWord;
     this.currentGuess = '';
     this.resetView(false);
   }
@@ -37,15 +36,15 @@ Game.prototype.updateGuess = function(index) {
 
   if (this.currentGuess.length === this.correctWord.length &&
       this.currentGuess !== this.correctWord) {
+    this.unusedLetters = this.currentGuess;
     this.currentGuess = '';
-    this.unusedLetters = this.scrambledWord;
   }
 
   this.resetView(this.currentGuess === this.correctWord);
 };
 
 Game.prototype.resetRound = function() {
-  this.unusedLetters = this.scrambledWord;
+  this.unusedLetters = this.currentGuess;
   this.currentGuess = '';
   this.resetView(false);
 };
