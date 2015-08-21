@@ -30,16 +30,18 @@ div.game-letter.game-letter-active {
   background: linear-gradient(90deg, #6441A5 10%, #2a0845 90%);
 }
 
-.rules-text-area {
+.notification-text-area {
   text-align: center;
-  min-height: 20px;
+  font-size: 20px;
+  min-height: 25px;
+  margin-bottom: 10px
 }
 
-.rules-text {
+.notification-text {
   transition: all 0.5s ease;
 }
 
-.rules-text.hidden-rules-text {
+.notification-text.hidden-notification-text {
   opacity: 0;
 }
 
@@ -55,4 +57,14 @@ div.game-letter.game-letter-active {
 .buttons-row {
   text-align: center;
   padding-top: 10px;
+}
+
+.score-row {
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center
+}
+
+.score-text {
+  padding-left: 20px;
 }

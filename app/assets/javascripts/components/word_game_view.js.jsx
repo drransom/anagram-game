@@ -6,36 +6,31 @@ var WordGameView = React.createClass({
     won: React.PropTypes.bool,
     url: React.PropTypes.string,
     hasPlayed: React.PropTypes.bool,
-    rulesHidden: React.PropTypes.bool,
-    rulesStartedHiding: React.PropTypes.bool
+    score: React.PropTypes.number
   },
 
   render: function() {
     var i, j, char, letters, rulesArea, lettersArea, buttonsArea;
+    notificationArea = this.calculateNotificationArea();
+    lettersArea = this.calculateLettersArea();
+    buttonsArea = this.calculateButtonsArea();
+    scoreArea = this.calculateScoreArea();
 
-    if (this.props.won) {
-        return (
-          <div>
-            <div>You won! The current guess was {this.props.currentGuess})</div>
-          </div>
-        );
-    } else {
-      rulesArea = this.calculateRulesArea();
-      lettersArea = this.calculateLettersArea();
-      buttonsArea = this.calculateButtonsArea();
-
-      return (
-        <div className='row vertical-margin-row'>
-          <div className='col-lg-12'>
-            {[rulesArea, lettersArea, buttonsArea]}
-          </div>
+    return (
+      <div className='row vertical-margin-row'>
+        <div className='col-lg-12'>
+          {[notificationArea, lettersArea, buttonsArea, scoreArea]}
         </div>
-      );
-    }
+      </div>
+    );
+  },
+
+  componentWillMount: function() {
+    this.notificationShouldBeVisible = true;
+    this.notificationShouldBeHidden = false;
   },
 
   componentDidMount: function() {
-    this.rulesStartedHiding = false;
     this.game = new ERWordGame.Game(this);
     this.game.startRound();
     $(window).keypress(this.handleKeypress);
@@ -50,8 +45,7 @@ var WordGameView = React.createClass({
             won: false,
             type: "WordGameView",
             hasPlayed: false,
-            rulesStartedHiding: false,
-            rulesHidden: false
+            score: 0
     };
   },
 
@@ -114,9 +108,20 @@ var WordGameView = React.createClass({
     );
   },
 
-  calculateRulesArea: function() {
-    return <RulesArea shouldRender={!this.rulesStartedHiding}
-            shouldBeHidden={this.props.rulesHidden} />;
+  calculateNotificationArea: function() {
+    return (
+      <RulesArea shouldBeVisible={this.notificationShouldBeVisible}
+        shouldBeHidden={this.notificationShouldBeHidden}
+        messageType={this.notificationMessage} />
+    );
+  },
+
+  calculateScoreArea: function() {
+    return (
+      <div className='row score-row'>
+        <ScoreArea score={this.score} />
+      </div>
+    );
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -124,20 +129,52 @@ var WordGameView = React.createClass({
       this.requestNewWords();
     }
 
-    if (nextProps.hasPlayed && !this.rulesStartedHiding) {
-      this.setRulesHiddenTimeout();
+    if (nextProps.outcome === 'win' || nextProps.outcome === 'skip') {
+      this.unhideNotification(nextProps.outcome);
+    } else if (nextProps.outcome === 'play') {
+      this.hideNotification();
     }
   },
 
-  setRulesHiddenTimeout: function() {
+  updateNotificationMessage: function (outcome) {
+    this.notificationMessage = outcome;
+  },
+
+  hideNotification: function() {
+    if (this.notificationShouldBeVisible) {
+      this.notificationShouldBeVisible = false;
+      this.setNotificationHiddenTimeout();
+    }
+  },
+
+  setNotificationHiddenTimeout: function() {
     var gameView = this;
-    this.rulesStartedHiding = true;
     setTimeout(
       function() {
-        gameView.setProps({rulesHidden: true})
+        gameView.notificationShouldBeHidden = true
+        gameView.render();
       },
       1000
     );
-  }
+  },
+
+  unhideNotification: function(outcome) {
+    if (this.notificationShouldBeHidden) {
+      this.updateNotificationMessage(outcome);
+      this.notificationShouldBeHidden = false;
+      this.setNotificationUnhiddenTimeout();
+    }
+  },
+
+  setNotificationUnhiddenTimeout: function() {
+    var gameView = this;
+    setTimeout(
+      function() {
+        gameView.notificationShouldBeVisible = true;
+        gameView.render();
+      },
+      100
+    );
+  },
 
 });
