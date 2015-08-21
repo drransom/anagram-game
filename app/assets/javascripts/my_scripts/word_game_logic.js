@@ -1,5 +1,6 @@
 ERWordGame.Game = function(view) {
   this.view = view;
+  this.hasPlayed = false;
   this.words = view.props.words.map(function(string) {
     return string.toLowerCase();
   });
@@ -30,6 +31,7 @@ Game.prototype.takeChar = function(char) {
 
 //assumes valid index
 Game.prototype.updateGuess = function(index) {
+  this.hasPlayed = true;
   this.currentGuess += this.unusedLetters[index];
   this.unusedLetters = this.unusedLetters.slice(0, index) +
                        this.unusedLetters.slice(index + 1);
@@ -52,7 +54,8 @@ Game.prototype.resetRound = function() {
 Game.prototype.resetView = function(isWon) {
   this.view.setProps({currentGuess: this.currentGuess,
                       scrambledChars: this.unusedLetters,
-                      won: isWon });
+                      won: isWon,
+                      hasPlayed: this.hasPlayed });
 };
 
 Game.prototype.skipToNextWord = function() {

@@ -30,6 +30,19 @@ div.game-letter.game-letter-active {
   background: linear-gradient(90deg, #6441A5 10%, #2a0845 90%);
 }
 
+.rules-text-area {
+  text-align: center;
+  min-height: 20px;
+}
+
+.rules-text {
+  transition: all 0.5s ease;
+}
+
+.rules-text.hidden-rules-text {
+  opacity: 0;
+}
+
 
 .vertical-margin-row {
   margin-top: 30vh;
