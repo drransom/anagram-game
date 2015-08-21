@@ -1,8 +1,3 @@
-;(function() {
-'use strict';
-
-window.ERWordGame = window.ERWordGame || {};
-
 ERWordGame.Game = function(view) {
   this.view = view;
   this.hasPlayed = false;
@@ -13,9 +8,9 @@ ERWordGame.Game = function(view) {
 var Game = ERWordGame.Game;
 
 Game.prototype.startRound = function(outcome) {
-  outcome = outcome || 'new';
+  outcome = outcome || 'new'
   if (this.words.length >= 1) {
-    this.correctWord = this.words.pop().toLowerCase();
+    this.correctWord = this.words.pop();
 
     this.unusedLetters = ECRWordGame.shuffle(this.correctWord.split('')).
       join('');
@@ -48,13 +43,13 @@ Game.prototype.updateGuess = function(index) {
     this.currentGuess = '';
   }
 
-  this.resetView(this.checkOutcome());
+  this.resetView(this.checkVictory());
 };
 
 Game.prototype.resetRound = function() {
   this.unusedLetters = this.currentGuess.concat(this.unusedLetters);
   this.currentGuess = '';
-  this.resetView("other");
+  this.resetView(false);
 };
 
 Game.prototype.resetView = function(outcome) {
@@ -62,8 +57,7 @@ Game.prototype.resetView = function(outcome) {
                       scrambledChars: this.unusedLetters,
                       outcome: outcome,
                       hasPlayed: this.hasPlayed,
-                      score: this.score,
-                    });
+                      score: this.score });
 };
 
 Game.prototype.checkOutcome = function() {
@@ -79,8 +73,3 @@ Game.prototype.skipToNextWord = function() {
   this.score -= 1;
   this.startRound("skip");
 };
-
-Game.prototype.addMoreWords = function(newWords) {
-  this.words = this.words.concat(newWords);
-};
-})();

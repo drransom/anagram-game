@@ -1,12 +1,11 @@
 var WordGameView = React.createClass({
   propTypes: {
-    words: React.PropTypes.array,
     scrambledChars: React.PropTypes.string,
     currentGuess: React.PropTypes.string,
     won: React.PropTypes.bool,
     url: React.PropTypes.string,
-    hasPlayed: React.PropTypes.bool,
-    score: React.PropTypes.number
+    score: React.PropTypes.number,
+    notificationMessage: React.PropTypes.string
   },
 
   render: function() {
@@ -25,15 +24,9 @@ var WordGameView = React.createClass({
     );
   },
 
-  componentWillMount: function() {
-    this.notificationShouldBeVisible = true;
-    this.notificationShouldBeHidden = false;
-  },
-
   componentDidMount: function() {
-    this.game = new ERWordGame.Game(this);
+    this.game = new ERWordGame.GameIntermediary(this);
     this.game.startRound();
-    $(window).keypress(this.handleKeypress);
   },
 
   getDefaultProps: function() {
@@ -41,27 +34,21 @@ var WordGameView = React.createClass({
             currentGuess: '',
             scrambledChars: '',
             url: '/',
-            words: [],
             won: false,
             type: "WordGameView",
-            hasPlayed: false,
-            score: 0
+            score: 0,
+            notificationMessage: 'new',
+            notificationShouldBeHidden: false,
+            notificationShouldBeVisible: true
     };
   },
 
   requestNewWords: function() {
     $.get(this.url, {new_words: true},
       function(data) {
-        var newWords = this.props.words.concat(data);
-        this.game.words = newWords;
-        this.setProps({words: newWords});
+        this.game.addMoreWords(data);
       }.bind(this)
     );
-  },
-
-  handleKeypress: function(event) {
-    var keyCode = event.keyCode || event.which;
-    this.game.takeChar(String.fromCharCode(keyCode));
   },
 
   calculateLetters: function() {
@@ -110,8 +97,8 @@ var WordGameView = React.createClass({
 
   calculateNotificationArea: function() {
     return (
-      <RulesArea shouldBeVisible={this.notificationShouldBeVisible}
-        shouldBeHidden={this.notificationShouldBeHidden}
+      <RulesArea shouldBeVisible={this.props.notificationShouldBeVisible}
+        shouldBeHidden={this.props.notificationShouldBeHidden}
         messageType={this.notificationMessage} />
     );
   },
@@ -121,59 +108,6 @@ var WordGameView = React.createClass({
       <div className='row score-row'>
         <ScoreArea score={this.score} />
       </div>
-    );
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    if (!this.props.words || this.props.words.length === 0) {
-      this.requestNewWords();
-    }
-
-    if (nextProps.outcome === 'win' || nextProps.outcome === 'skip') {
-      this.unhideNotification(nextProps.outcome);
-    } else if (nextProps.outcome === 'play') {
-      this.hideNotification();
-    }
-  },
-
-  updateNotificationMessage: function (outcome) {
-    this.notificationMessage = outcome;
-  },
-
-  hideNotification: function() {
-    if (this.notificationShouldBeVisible) {
-      this.notificationShouldBeVisible = false;
-      this.setNotificationHiddenTimeout();
-    }
-  },
-
-  setNotificationHiddenTimeout: function() {
-    var gameView = this;
-    setTimeout(
-      function() {
-        gameView.notificationShouldBeHidden = true
-        gameView.render();
-      },
-      1000
-    );
-  },
-
-  unhideNotification: function(outcome) {
-    if (this.notificationShouldBeHidden) {
-      this.updateNotificationMessage(outcome);
-      this.notificationShouldBeHidden = false;
-      this.setNotificationUnhiddenTimeout();
-    }
-  },
-
-  setNotificationUnhiddenTimeout: function() {
-    var gameView = this;
-    setTimeout(
-      function() {
-        gameView.notificationShouldBeVisible = true;
-        gameView.render();
-      },
-      100
     );
   },
 
