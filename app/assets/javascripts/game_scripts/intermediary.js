@@ -3,13 +3,13 @@
 
 window.ERWordGame = window.ERWordGame || {};
 
-ERWordGame.GameIntermediary = function(view) {
+ERWordGame.GameIntermediary = function(view, words) {
   this.view = view;
-  this.game = new ERWordGame.Game(this);
+  this.game = new ERWordGame.Game(this, words);
   this.notificationShouldBeHidden = false;
   this.notificationShouldBeVisible = true;
   this.notificationType = 'new';
-  hasPlayed = false;
+  this.hasPlayed = false;
 };
 
 var GameIntermediary = ERWordGame.GameIntermediary;
@@ -17,7 +17,7 @@ var GameIntermediary = ERWordGame.GameIntermediary;
 GameIntermediary.prototype.setProps = function(props) {
   this.updateHistory(props);
   this.addStateToProps(props);
-  this.game.setProps(props);
+  this.view.setProps(props);
 };
 
 GameIntermediary.prototype.takeChar = function(char) {
@@ -26,7 +26,6 @@ GameIntermediary.prototype.takeChar = function(char) {
 
 GameIntermediary.prototype.updateHistory = function(props) {
   this.checkHideNotification(props);
-  this.checkShowNotification(props);
 
   this.checkRoundEnd(props);
 };
@@ -75,7 +74,7 @@ GameIntermediary.prototype.addStateToProps = function(props) {
 };
 
 GameIntermediary.prototype.startRound = function() {
-  $(window).keypress(this.handleKeypress);
+  $(window).keypress(this.handleKeypress.bind(this));
   this.game.startRound();
 };
 
@@ -87,5 +86,17 @@ GameIntermediary.prototype.handleKeypress = function(event) {
 GameIntermediary.prototype.addMoreWords = function(words) {
   this.game.addMoreWords(words);
 };
+
+GameIntermediary.prototype.resetRound = function() {
+  this.game.resetRound();
+};
+
+GameIntermediary.prototype.skipToNextWord = function() {
+  this.game.skipToNextWord();
+};
+
+GameIntermediary.prototype.requestNewWords = function() {
+  this.view.requestNewWords();
+}
 
 })();

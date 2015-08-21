@@ -1,7 +1,7 @@
 var WordGameLetter = React.createClass({
   propTypes: {
     char: React.PropTypes.string,
-    active: React.PropTypes.bool
+    active: React.PropTypes.bool,
   },
 
   render: function() {

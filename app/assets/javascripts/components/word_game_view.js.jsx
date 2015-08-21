@@ -5,11 +5,12 @@ var WordGameView = React.createClass({
     won: React.PropTypes.bool,
     url: React.PropTypes.string,
     score: React.PropTypes.number,
-    notificationMessage: React.PropTypes.string
+    notificationMessage: React.PropTypes.string,
+    words: React.PropTypes.array,
   },
 
   render: function() {
-    var i, j, char, letters, rulesArea, lettersArea, buttonsArea;
+    var i, j, char, letters, notificationArea, lettersArea, buttonsArea;
     notificationArea = this.calculateNotificationArea();
     lettersArea = this.calculateLettersArea();
     buttonsArea = this.calculateButtonsArea();
@@ -25,7 +26,7 @@ var WordGameView = React.createClass({
   },
 
   componentDidMount: function() {
-    this.game = new ERWordGame.GameIntermediary(this);
+    this.game = new ERWordGame.GameIntermediary(this, this.props.words);
     this.game.startRound();
   },
 
@@ -69,7 +70,7 @@ var WordGameView = React.createClass({
   calculateLettersArea: function() {
     var letters = this.calculateLetters();
     return (
-      <div className='row letters-row'>
+      <div className='row letters-row' key='letters-row'>
         <div className='letters-area'>{letters}</div>
       </div>
     );
@@ -80,14 +81,14 @@ var WordGameView = React.createClass({
       <ControlButtons won={this.props.won}
         numCharsRemaining={this.props.scrambledChars.length}
         numChars={this.props.scrambledChars.length + this.props.currentGuess.length}
-        game={this.game} />
+        game={this.game}/>
     );
   },
 
   calculateButtonsArea: function() {
     var controlButtons = this.calculateControlButtons();
     return(
-      <div className='row buttons-row'>
+      <div className='row buttons-row' key='control-buttons-row'>
         <div className='buttons-area'>
           {controlButtons}
         </div>
@@ -97,16 +98,16 @@ var WordGameView = React.createClass({
 
   calculateNotificationArea: function() {
     return (
-      <RulesArea shouldBeVisible={this.props.notificationShouldBeVisible}
+      <NotificationArea shouldBeVisible={this.props.notificationShouldBeVisible}
         shouldBeHidden={this.props.notificationShouldBeHidden}
-        messageType={this.notificationMessage} />
+        messageType={this.props.notificationMessage} key='notification-area'/>
     );
   },
 
   calculateScoreArea: function() {
     return (
-      <div className='row score-row'>
-        <ScoreArea score={this.score} />
+      <div className='row score-row' key='score-row'>
+        <ScoreArea score={this.props.score} />
       </div>
     );
   },

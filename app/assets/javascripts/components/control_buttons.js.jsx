@@ -32,7 +32,7 @@ var ControlButtons = React.createClass({
     return (
       <button type='button' className='btn btn-primary'
         onClick={this.props.game.resetRound.bind(this.props.game)}
-        disabled={disabled}>Reset</button>
+        disabled={disabled} key='reset-button'>Reset</button>
     );
   },
 
@@ -41,7 +41,7 @@ var ControlButtons = React.createClass({
     return (
       <button type='button' className='btn btn-primary'
         onClick={this.props.game.skipToNextWord.bind(this.props.game)}
-        disabled={disabled}>Skip
+        disabled={disabled} key='skip-button'>Skip
       </button>
     );
   },

@@ -1,4 +1,4 @@
-var RulesArea = React.createClass({
+var NotificationArea = React.createClass({
   propTypes: {
     shouldBeVisible: React.PropTypes.bool,
     shouldBeHidden: React.PropTypes.bool,
@@ -6,14 +6,12 @@ var RulesArea = React.createClass({
   },
 
   render: function() {
-    debugger
     var hidden, message, className = "notification-text";
     className += this.props.shouldBeVisible ? '' : ' hidden-notification-text';
-    hidden = this.props.shouldBeHidden ? 'hidden' : '';
     message = this.getMessageType();
     return (
       <div className="row notification-text-area">
-        <span hidden={hidden} className={className}>
+        <span hidden={this.props.shouldBeHidden} className={className}>
           {message}
         </span>
       </div>
@@ -24,7 +22,7 @@ var RulesArea = React.createClass({
     return {
       shouldBeVisible: true,
       shouldBeHidden: false,
-      type: 'RulesArea',
+      type: 'NotificationArea',
       messageType: 'rules',
     };
   },

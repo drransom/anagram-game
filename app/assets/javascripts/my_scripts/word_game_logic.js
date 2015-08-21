@@ -3,16 +3,17 @@
 
 window.ERWordGame = window.ERWordGame || {};
 
-ERWordGame.Game = function(view) {
+ERWordGame.Game = function(view, words) {
   this.view = view;
   this.hasPlayed = false;
   this.score = 0;
-  this.words = view.props.words;
+  this.words = words;
 };
 
 var Game = ERWordGame.Game;
 
 Game.prototype.startRound = function(outcome) {
+  this.hasPlayed = false;
   outcome = outcome || 'new';
   if (this.words.length >= 1) {
     this.correctWord = this.words.pop().toLowerCase();
