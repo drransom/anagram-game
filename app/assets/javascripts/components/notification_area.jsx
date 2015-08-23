@@ -29,13 +29,13 @@ var NotificationArea = React.createClass({
 
   getMessageType: function() {
     switch(this.props.messageType) {
-      case "rules":
-        return "Press any letter on the keyboard to guess. " +
-          "One point for each letter. Lose one point if you skip."
-      case "win":
-        return "Congratulations! You win!"
-      case "skip":
-        return "Too bad, you lose one point for skipping."
+      case 'new':
+        return 'Press any letter on the keyboard to guess. ' +
+          'One point for each letter. Lose one point if you skip.'
+      case 'win':
+        return 'Good job! Press any key to get another word.'
+      case 'skip':
+        return 'Too bad, you lose one point for skipping.'
     }
   }
 

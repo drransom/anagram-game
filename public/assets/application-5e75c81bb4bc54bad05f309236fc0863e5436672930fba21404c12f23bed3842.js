@@ -24284,7 +24284,7 @@ module.exports = ReactEmptyComponent;
 var ReactErrorUtils = {
   /**
    * Creates a guarded version of a function. This is supposed to make debugging
-   * of event handlers easier. To aid debugging with the browser's debugger,
+   * of event handlers easier. To aid debugging with the browser's GameUI,
    * this currently simply returns the original function.
    *
    * @param {function} func Function to be executed

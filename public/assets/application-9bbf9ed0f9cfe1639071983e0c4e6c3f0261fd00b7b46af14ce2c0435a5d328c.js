@@ -24284,7 +24284,7 @@ module.exports = ReactEmptyComponent;
 var ReactErrorUtils = {
   /**
    * Creates a guarded version of a function. This is supposed to make debugging
-   * of event handlers easier. To aid debugging with the browser's debugger,
+   * of event handlers easier. To aid debugging with the browser's GameUI,
    * this currently simply returns the original function.
    *
    * @param {function} func Function to be executed
@@ -33414,7 +33414,7 @@ var WordGameView = React.createClass({
   },
 
   render: function () {
-    debugger;
+    GameUI;
     var i, j, char, letters, rulesArea, lettersArea, buttonsArea;
 
     if (this.props.won) {
@@ -33447,7 +33447,7 @@ var WordGameView = React.createClass({
   },
 
   componentDidMount: function () {
-    debugger;
+    GameUI;
     this.rulesStartedHiding = false;
     this.game = new ERWordGame.Game(this);
     this.game.startRound();
@@ -33469,7 +33469,7 @@ var WordGameView = React.createClass({
   },
 
   requestNewWords: function () {
-    debugger;
+    GameUI;
     $.get(this.url, { new_words: true }, (function (data) {
       var newWords = this.props.words.concat(data);
       this.game.words = newWords;
@@ -33546,7 +33546,7 @@ var WordGameView = React.createClass({
   },
 
   setRulesHiddenTimeout: function () {
-    debugger;
+    GameUI;
     var gameView = this;
     this.rulesStartedHiding = true;
     setTimeout(function () {
@@ -33588,7 +33588,7 @@ ECRWordGame.shuffle = function (array) {
 };
 })();
 ERWordGame.Game = function(view) {
-  debugger;
+  GameUI;
   this.view = view;
   this.words = view.props.words.map(function(string) {
     return string.toLowerCase();
@@ -33598,7 +33598,7 @@ ERWordGame.Game = function(view) {
 var Game = ERWordGame.Game;
 
 Game.prototype.startRound = function() {
-  debugger;
+  GameUI;
   if (this.words.length >= 1) {
     this.correctWord = this.words.pop();
     this.unusedLetters = ECRWordGame.shuffle(this.correctWord.split('')).

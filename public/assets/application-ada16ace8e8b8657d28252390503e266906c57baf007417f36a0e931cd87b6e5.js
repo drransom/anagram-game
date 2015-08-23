@@ -22328,7 +22328,7 @@ module.exports = ReactEmptyComponent;
 var ReactErrorUtils = {
   /**
    * Creates a guarded version of a function. This is supposed to make debugging
-   * of event handlers easier. To aid debugging with the browser's debugger,
+   * of event handlers easier. To aid debugging with the browser's GameUI,
    * this currently simply returns the original function.
    *
    * @param {function} func Function to be executed
@@ -31332,7 +31332,7 @@ var WordGameView = React.createClass({
   },
 
   render: function () {
-    debugger;
+    GameUI;
     if (!this.props.words || this.props.words.length === 0) {
       this.requestNewWords();
     } else if (this.props.won) {
@@ -31383,7 +31383,7 @@ var WordGameView = React.createClass({
     $.get(this.url, {
       data: { new_words: true },
       success: function (event) {
-        debugger;
+        GameUI;
       }
     });
   },

@@ -24284,7 +24284,7 @@ module.exports = ReactEmptyComponent;
 var ReactErrorUtils = {
   /**
    * Creates a guarded version of a function. This is supposed to make debugging
-   * of event handlers easier. To aid debugging with the browser's debugger,
+   * of event handlers easier. To aid debugging with the browser's GameUI,
    * this currently simply returns the original function.
    *
    * @param {function} func Function to be executed
@@ -33376,7 +33376,7 @@ var RulesArea = React.createClass({
   },
 
   render: function () {
-    debugger;
+    GameUI;
     var hidden,
         message,
         className = "notification-text";
@@ -33474,7 +33474,7 @@ var WordGameView = React.createClass({
   },
 
   componentDidMount: function () {
-    this.game = new ERWordGame.GameIntermediary(this);
+    this.game = new ERWordGame.GameUI(this);
     this.game.startRound();
   },
 
@@ -33594,7 +33594,7 @@ ECRWordGame.shuffle = function (array) {
 
 window.ERWordGame = window.ERWordGame || {};
 
-ERWordGame.GameIntermediary = function(view) {
+ERWordGame.GameUI = function(view) {
   this.view = view;
   this.game = new ERWordGame.Game(this);
   this.notificationShouldBeHidden = false;
@@ -33603,26 +33603,26 @@ ERWordGame.GameIntermediary = function(view) {
   hasPlayed = false;
 };
 
-var GameIntermediary = ERWordGame.GameIntermediary;
+var GameUI = ERWordGame.GameUI;
 
-GameIntermediary.prototype.setProps = function(props) {
+GameUI.prototype.setProps = function(props) {
   this.updateHistory(props);
   this.addStateToProps(props);
   this.game.setProps(props);
 };
 
-GameIntermediary.prototype.takeChar = function(char) {
+GameUI.prototype.takeChar = function(char) {
   this.game.takeChar(char);
 };
 
-GameIntermediary.prototype.updateHistory = function(props) {
+GameUI.prototype.updateHistory = function(props) {
   this.checkHideNotification(props);
   this.checkShowNotification(props);
 
   this.checkRoundEnd(props);
 };
 
-GameIntermediary.prototype.checkHideNotification = function(props) {
+GameUI.prototype.checkHideNotification = function(props) {
   if (this.hasPlayed !== props.hasPlayed) {
     this.hasPlayed = props.hasPlayed;
     props.updateNotificationMessage = true;
@@ -33630,7 +33630,7 @@ GameIntermediary.prototype.checkHideNotification = function(props) {
   }
 };
 
-GameIntermediary.prototype.hideNotification = function() {
+GameUI.prototype.hideNotification = function() {
   this.notificationShouldBeVisible = false;
   setTimeout(
    function() {
@@ -33641,7 +33641,7 @@ GameIntermediary.prototype.hideNotification = function() {
   );
 };
 
-GameIntermediary.prototype.checkRoundEnd = function(props) {
+GameUI.prototype.checkRoundEnd = function(props) {
   if (props.outcome === 'win' || props.outcome === 'skip') {
     props.notificationMessage = props.outcome;
     this.hasPlayed = false;
@@ -33649,7 +33649,7 @@ GameIntermediary.prototype.checkRoundEnd = function(props) {
   }
 };
 
-GameIntermediary.prototype.unhideNotification = function() {
+GameUI.prototype.unhideNotification = function() {
   this.notificationShouldBeHidden = false;
   setTimeout(
     function() {
@@ -33660,22 +33660,22 @@ GameIntermediary.prototype.unhideNotification = function() {
   );
 };
 
-GameIntermediary.prototype.addStateToProps = function(props) {
+GameUI.prototype.addStateToProps = function(props) {
   props.notificationShouldBeHidden = this.notificationShouldBeHidden;
   props.notificationShouldBeVisible = this.notificationShouldBeVisible;
 };
 
-GameIntermediary.prototype.startRound = function() {
+GameUI.prototype.startRound = function() {
   $(window).keypress(this.handleKeypress);
   this.game.startRound();
 };
 
-GameIntermediary.prototype.handleKeypress = function(event) {
+GameUI.prototype.handleKeypress = function(event) {
   var keyCode = event.keyCode || event.which;
   this.game.takeChar(String.fromCharCode(keyCode));
 };
 
-GameIntermediary.prototype.addMoreWords = function(words) {
+GameUI.prototype.addMoreWords = function(words) {
   this.game.addMoreWords(words);
 }
 

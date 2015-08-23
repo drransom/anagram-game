@@ -26,7 +26,7 @@ var WordGameView = React.createClass({
   },
 
   componentDidMount: function() {
-    this.game = new ERWordGame.GameIntermediary(this, this.props.words);
+    this.game = new ERWordGame.GameUI(this, this.props.words);
     this.game.startRound();
   },
 
