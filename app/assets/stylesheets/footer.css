@@ -1,0 +1,17 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.footer > .container {
+  padding-left: 15px;
+  padding-right: 15px
+}
+
+.footer > .container > a:focus,
+.footer > .container > a:hover {
+  text-decoration: none;
+  color: #C31F26
+}
