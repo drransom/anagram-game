@@ -8,6 +8,7 @@ ERWordGame.Game = function(view, words) {
   this.hasPlayed = false;
   this.score = 0;
   this.words = words;
+  this.lastCorrect = '';
 };
 
 var Game = ERWordGame.Game;
@@ -64,6 +65,7 @@ Game.prototype.resetView = function(outcome) {
                       outcome: outcome,
                       hasPlayed: this.hasPlayed,
                       score: this.score,
+                      correctWord: this.lastCorrect
                     });
 };
 
@@ -76,8 +78,9 @@ Game.prototype.checkOutcome = function() {
   }
 };
 
-Game.prototype.skipToNextWord = function() {
+Game.prototype.skipToNextWord = function(event) {
   this.score -= 1;
+  this.lastCorrect = this.correctWord;
   this.startRound("skip");
 };
 

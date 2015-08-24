@@ -7,6 +7,7 @@ var WordGameView = React.createClass({
     score: React.PropTypes.number,
     notificationMessage: React.PropTypes.string,
     words: React.PropTypes.array,
+    correctWord: React.PropTypes.string
   },
 
   render: function() {
@@ -40,7 +41,8 @@ var WordGameView = React.createClass({
             score: 0,
             notificationMessage: 'new',
             notificationShouldBeHidden: false,
-            notificationShouldBeVisible: true
+            notificationShouldBeVisible: true,
+            correctWord: ''
     };
   },
 
@@ -100,7 +102,9 @@ var WordGameView = React.createClass({
     return (
       <NotificationArea shouldBeVisible={this.props.notificationShouldBeVisible}
         shouldBeHidden={this.props.notificationShouldBeHidden}
-        messageType={this.props.notificationMessage} key='notification-area'/>
+        messageType={this.props.notificationMessage}
+        correctWord={this.props.correctWord}
+        key='notification-area'/>
     );
   },
 

@@ -24,10 +24,8 @@ var ControlButtons = React.createClass({
   },
 
   generateResetButton: function() {
-    var disabled = '';
-    if (this.props.won || this.gameStart()) {
-      disabled = 'disabled';
-    }
+    var disabled = (this.props.won || this.gameStart() ||
+                    !this.props.numCharsRemaining) ? 'disabled' : '';
 
     return (
       <button type='button' className='btn btn-primary'
@@ -37,7 +35,7 @@ var ControlButtons = React.createClass({
   },
 
   generateSkipButton: function() {
-    var disabled = this.props.won ? 'disabled' : '';
+    var disabled = (this.allowSkip()) ? '' : 'disabled';
     return (
       <button type='button' className='btn btn-primary'
         onClick={this.props.game.skipToNextWord.bind(this.props.game)}
@@ -48,6 +46,10 @@ var ControlButtons = React.createClass({
 
   gameStart: function() {
     return this.props.numChars === this.props.numCharsRemaining;
+  },
+
+  allowSkip: function() {
+    return !this.props.won && this.props.numCharsRemaining;
   },
 
   getDefaultProps: function() {

@@ -84,7 +84,6 @@ GameUI.prototype.handleKeypress = function(event) {
     this.game.startRound();
   } else {
     var keyCode = event.keyCode || event.which;
-    console.log('key ' + keyCode + " pressed")
     this.game.takeChar(String.fromCharCode(keyCode));
   }
 };

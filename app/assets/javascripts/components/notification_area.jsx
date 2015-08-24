@@ -3,6 +3,7 @@ var NotificationArea = React.createClass({
     shouldBeVisible: React.PropTypes.bool,
     shouldBeHidden: React.PropTypes.bool,
     messageType: React.PropTypes.string,
+    correctWord: React.PropTypes.string
   },
 
   render: function() {
@@ -24,6 +25,7 @@ var NotificationArea = React.createClass({
       shouldBeHidden: false,
       type: 'NotificationArea',
       messageType: 'rules',
+      correctWord: ''
     };
   },
 
@@ -35,7 +37,8 @@ var NotificationArea = React.createClass({
       case 'win':
         return 'Good job! Press any key to get another word.'
       case 'skip':
-        return 'Too bad, you lose one point for skipping.'
+        return 'Too bad, you lose one point for skipping. ' +
+               'The answer was ' + this.props.correctWord + '.';
     }
   }
 
