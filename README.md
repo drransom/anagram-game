@@ -1,5 +1,6 @@
 WORD GUESSING GAME
 =====================
+[Live demo][live]
 This is a word guessing game implemented in React. The words come from
 [Wordnik][wordnik].
 
@@ -48,3 +49,4 @@ word that is not entirely lowercase letters. The reason for this is that the
 Wordnik API does not properly support removing multiple types of proper nouns.
 
 [wordnik]: https://www.wordnik.com/
+[live]: https://anagram-game.herokuapp.com/
