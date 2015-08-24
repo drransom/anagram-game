@@ -1,6 +1,7 @@
 WORD GUESSING GAME
 =====================
 [Live demo][live]
+
 This is a word guessing game implemented in React. The words come from
 [Wordnik][wordnik].
 
