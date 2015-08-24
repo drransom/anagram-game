@@ -28,19 +28,19 @@ var ControlButtons = React.createClass({
                     !this.props.numCharsRemaining) ? 'disabled' : '';
 
     return (
-      <button type='button' className='btn btn-primary'
+      <a href="#" type='button' className='btn btn-primary'
         onClick={this.props.game.resetRound.bind(this.props.game)}
-        disabled={disabled} key='reset-button'>Reset</button>
+        disabled={disabled} key='reset-button'>Reset</a>
     );
   },
 
   generateSkipButton: function() {
     var disabled = (this.allowSkip()) ? '' : 'disabled';
     return (
-      <button type='button' className='btn btn-primary'
+      <a href="#" type='button' className='btn btn-primary'
         onClick={this.props.game.skipToNextWord.bind(this.props.game)}
         disabled={disabled} key='skip-button'>Skip
-      </button>
+      </a>
     );
   },
 

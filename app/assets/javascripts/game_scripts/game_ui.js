@@ -21,6 +21,7 @@ GameUI.prototype.setProps = function(props) {
 };
 
 GameUI.prototype.takeChar = function(char) {
+
   this.game.takeChar(char);
 };
 
