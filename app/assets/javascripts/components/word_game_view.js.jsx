@@ -46,14 +46,6 @@ var WordGameView = React.createClass({
     };
   },
 
-  requestNewWords: function() {
-    $.get(this.url, {new_words: true},
-      function(data) {
-        this.game.addMoreWords(data);
-      }.bind(this)
-    );
-  },
-
   calculateLetters: function() {
     var letters = [];
     for (i = 0; i < this.props.currentGuess.length; i++) {

@@ -5,6 +5,7 @@ window.ERWordGame = window.ERWordGame || {};
 
 ERWordGame.GameUI = function(view, words) {
   this.view = view;
+  this.url = this.view.props.url;
   this.game = new ERWordGame.Game(this, words);
   this.notificationShouldBeHidden = false;
   this.notificationShouldBeVisible = true;
@@ -102,7 +103,11 @@ GameUI.prototype.skipToNextWord = function() {
 };
 
 GameUI.prototype.requestNewWords = function() {
-  this.view.requestNewWords();
+  $.get(this.url, {new_words: true},
+    function(data) {
+      this.game.addMoreWords(data);
+    }.bind(this)
+  );
 };
 
 
