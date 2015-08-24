@@ -26,7 +26,8 @@ the key.
 
 I chose to use a Rails server because Rails has a good React gem that
 that allows the app to be initialized with
-```<%= react_component('WordGameView', words: @words_arr,
+```Ruby
+<%= react_component('WordGameView', words: @words_arr,
 url: url_for(controller: 'games', action: 'new')) %>
 ```
 
