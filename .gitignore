@@ -20,4 +20,4 @@
 /config/application.yml
 
 # Ignore development and test secrets
-/config/development_secrets.yml
+.env
