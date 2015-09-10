@@ -35,6 +35,7 @@ url: url_for(controller: 'games', action: 'new')) %>
 
 Todos
 -------------
+* User login and accounts
 * Write tests. I am a TDD believer but in this case writing the tests ended
 up taking a back seat to getting a production version of the project up.
 * Better styling and user interactivity
